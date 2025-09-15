@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Canvas Hill Climber</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="game-shell">
+      <header class="hud">
+        <h1>Canvas Hill Climber</h1>
+        <p class="hud__stats">
+          Distance: <span id="distance">0</span> m · Best: <span id="best-distance">0</span> m · Fuel: <span id="fuel">100</span>%
+        </p>
+        <p class="hud__help">
+          Accelerate with <kbd>W</kbd>/<kbd>▲</kbd>, brake with <kbd>S</kbd>/<kbd>▼</kbd>, tilt with <kbd>A</kbd>/<kbd>D</kbd> or <kbd>◄</kbd>/<kbd>►</kbd>. Press <kbd>R</kbd> to restart.
+        </p>
+      </header>
+      <canvas id="game" width="960" height="540" role="presentation" aria-hidden="true"></canvas>
+      <section class="game-over hidden" id="game-over">
+        <div class="game-over__card">
+          <h2>Game Over</h2>
+          <p>You travelled <span id="final-distance">0</span> meters.</p>
+          <button id="restart">Play again</button>
+        </div>
+      </section>
+    </main>
+    <script src="main.js" type="module"></script>
+  </body>
+</html>
