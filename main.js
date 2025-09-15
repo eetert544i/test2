@@ -40,8 +40,9 @@ const car = {
   wheelYOffset: 28,
   suspensionStiffness: 450,
   suspensionDamping: 30,
-  wheelFriction: 180,
-  engineForce: 320,
+  wheelFriction: 26,
+  tireGrip: 1.2,
+  engineForce: 3400,
   airControlTorque: 220,
   bodySize: { width: 150, height: 52 },
   inertia: 120,
@@ -361,20 +362,23 @@ function update(dt) {
 
         const springForce = penetration * car.suspensionStiffness;
         const damperForce = relativeNormalVelocity * car.suspensionDamping;
-        const normalForceMag = springForce - damperForce;
+        let normalForceMag = springForce - damperForce;
+        if (normalForceMag < 0) normalForceMag = 0;
 
         contactForceX += normal.x * normalForceMag;
         contactForceY += normal.y * normalForceMag;
 
-        const frictionForce = -relativeTangentVelocity * car.wheelFriction;
-        contactForceX += tangent.x * frictionForce;
-        contactForceY += tangent.y * frictionForce;
-
+        let tangentialForce = -relativeTangentVelocity * car.wheelFriction;
         if (throttleInput !== 0) {
-          const engineForce = throttleInput * car.engineForce;
-          contactForceX += tangent.x * engineForce;
-          contactForceY += tangent.y * engineForce;
+          tangentialForce += throttleInput * car.engineForce;
         }
+        const maxTraction = Math.abs(normalForceMag * car.tireGrip);
+        if (maxTraction > 0) {
+          tangentialForce = clamp(tangentialForce, -maxTraction, maxTraction);
+        }
+
+        contactForceX += tangent.x * tangentialForce;
+        contactForceY += tangent.y * tangentialForce;
 
         const spinDelta = (relativeTangentVelocity / car.wheelRadius) * dt;
         wheel.spin += spinDelta;
