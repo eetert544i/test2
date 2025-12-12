@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hill Climber</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="ui">
+    <header>
+      <h1>Hill Climber</h1>
+      <div class="stats">
+        <div><span class="label">Distance</span><span id="distance" class="value">0 m</span></div>
+        <div><span class="label">Speed</span><span id="speed" class="value">0 km/h</span></div>
+        <div><span class="label">Altitude</span><span id="altitude" class="value">0 m</span></div>
+        <div><span class="label">Fuel</span>
+          <div class="fuel-bar"><div id="fuelFill"></div></div>
+        </div>
+        <div><span class="label">Coins</span><span id="coins" class="value">0</span></div>
+        <div><span class="label">Best</span><span id="best" class="value">0 m</span></div>
+      </div>
+    </header>
+    <div class="controls">
+      <button id="restart">Restart</button>
+      <button id="pause">Pause</button>
+      <span class="hint">Controls: Left/Right arrow to brake/drive, A/D to tilt in the air, Space to reset.</span>
+    </div>
+  </div>
+  <canvas id="game"></canvas>
+  <div id="overlay" class="hidden">
+    <div class="panel">
+      <h2 id="overlayTitle">Game Over</h2>
+      <p id="overlayMessage"></p>
+      <button id="overlayButton">Try Again</button>
+    </div>
+  </div>
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>
